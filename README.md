@@ -33,13 +33,6 @@ based on:
       - green
     - slowk
       - red
-<!--
-![](images/Indicador Estocástico.png)
-
-![alt text](./images/Indicador Estocástico.png)
-
-![Alt text](images/Indicador Estocástico.png?raw=true "Title")
--->
 
 <p align="center">
   <img src="images/Indicador Estocástico.png" height="200" width="auto" alt="accessibility text">
