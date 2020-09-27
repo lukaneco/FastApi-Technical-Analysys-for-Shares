@@ -2,9 +2,9 @@ certifi
 chardet
 click
 dataclasses
-Flask
-Flask-Cors
-gunicorn
+#Flask
+#Flask-Cors
+#gunicorn
 idna
 itsdangerous
 Jinja2
@@ -19,3 +19,5 @@ urllib3
 Werkzeug
 yahoo-fin
 pandas-ta
+uvicorn
+fastapi

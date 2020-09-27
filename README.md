@@ -1,24 +1,30 @@
-# flask_technical_analysys for actions
+# FastApi Technical Analysys for actions
 
 to use it:
 
 ```
 pip install requests_html
 C:/Python38/python.exe -m pip install -r .\requirements.txt
-C:/Python38/python.exe .\app.py
+
+uvicorn fastapp:app --reload
 ```
 and open in the browser
-http://127.0.0.1:5000/api/ta?ticker=AMD&indicator=adx
+http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
 
 to see the options go to
-http://127.0.0.1:5000
+http://127.0.0.1:8000/docs
 
-based on the library:
-pandas-ta
-    https://github.com/twopirllc/pandas-ta
+based on:
 
-notebook
-    https://github.com/tomasmerencio/AnalisisTecnicoAcciones/blob/master/AnalisisTecnicoAcciones.ipynb
+  repo:
+    https://github.com/tomasmerencio/flask_technical_analysys
+    
+  the library:
+    pandas-ta
+        https://github.com/twopirllc/pandas-ta
+
+  notebook
+      https://github.com/tomasmerencio/AnalisisTecnicoAcciones/blob/master/AnalisisTecnicoAcciones.ipynb
 
 
 
