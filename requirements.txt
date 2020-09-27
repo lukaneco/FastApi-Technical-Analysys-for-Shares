@@ -21,3 +21,4 @@ yahoo-fin
 pandas-ta
 uvicorn
 fastapi
+requests_html
