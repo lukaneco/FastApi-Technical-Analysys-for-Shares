@@ -22,6 +22,102 @@ notebook
 
 
 
+## Indicador Estocástico
+-   STOCH
+    - slowd
+      - green
+    - slowk
+      - red
+<!--
+![](images/Indicador Estocástico.png)
+
+![alt text](./images/Indicador Estocástico.png)
+
+![Alt text](images/Indicador Estocástico.png?raw=true "Title")
+-->
+
+<p align="center">
+  <img src="images/Indicador Estocástico.png" height="200" width="auto" alt="accessibility text">
+</p>
+
+### stoch response example
+```
+{
+  "date": [
+    "2020/09/04", 
+    "2020/09/08", 
+    "2020/09/09", 
+    "2020/09/10", 
+    "2020/09/11", 
+    "2020/09/14", 
+    "2020/09/15", 
+    "2020/09/16", 
+    "2020/09/17", 
+    "2020/09/18", 
+    "2020/09/21", 
+    "2020/09/22", 
+    "2020/09/23", 
+    "2020/09/24", 
+    "2020/09/25"
+  ], 
+  "name": "Advanced Micro Devices, Inc.", 
+  "stoch": {
+    "slowd": [
+      61.31325194047465, 
+      53.43169105954146, 
+      42.67945269775044, 
+      30.965750910899104, 
+      24.290898733473593, 
+      22.09009743922211, 
+      24.973210828113242, 
+      26.6619974020666, 
+      29.255320789064758, 
+      29.773519576939652, 
+      32.960512458069694, 
+      36.283687936644306, 
+      39.3043266779309, 
+      40.52549640083082, 
+      44.44300422892409
+    ], 
+    "slowk": [
+      56.17958316229338, 
+      42.346524809907336, 
+      29.51225012105018, 
+      21.038477801739365, 
+      22.321968277630805, 
+      22.909846238295735, 
+      29.687817968412766, 
+      27.388327999490865, 
+      30.68981639929022, 
+      31.24241433203744, 
+      36.949306642880984, 
+      40.65934283501407, 
+      40.30433055589724, 
+      40.61281581158074, 
+      52.411866319293914
+    ]
+  }, 
+  "ticker": "AMD"
+}
+```
+
+
+## Índice de movimiento direccional (DMI)
+-   ADX
+    - ADX
+      - purple
+    - DI+
+      - green
+    - DI-
+      - red
+
+
+<p align="center">
+  <img src="images/Índice de movimiento direccional.png" height="200" width="auto" alt="accessibility text">
+</p>
+
+
+
 ### adx response example
 ```
 {
@@ -101,69 +197,25 @@ notebook
 
 ```
 
-### stoch response example
-```
-{
-  "date": [
-    "2020/09/04", 
-    "2020/09/08", 
-    "2020/09/09", 
-    "2020/09/10", 
-    "2020/09/11", 
-    "2020/09/14", 
-    "2020/09/15", 
-    "2020/09/16", 
-    "2020/09/17", 
-    "2020/09/18", 
-    "2020/09/21", 
-    "2020/09/22", 
-    "2020/09/23", 
-    "2020/09/24", 
-    "2020/09/25"
-  ], 
-  "name": "Advanced Micro Devices, Inc.", 
-  "stoch": {
-    "slowd": [
-      61.31325194047465, 
-      53.43169105954146, 
-      42.67945269775044, 
-      30.965750910899104, 
-      24.290898733473593, 
-      22.09009743922211, 
-      24.973210828113242, 
-      26.6619974020666, 
-      29.255320789064758, 
-      29.773519576939652, 
-      32.960512458069694, 
-      36.283687936644306, 
-      39.3043266779309, 
-      40.52549640083082, 
-      44.44300422892409
-    ], 
-    "slowk": [
-      56.17958316229338, 
-      42.346524809907336, 
-      29.51225012105018, 
-      21.038477801739365, 
-      22.321968277630805, 
-      22.909846238295735, 
-      29.687817968412766, 
-      27.388327999490865, 
-      30.68981639929022, 
-      31.24241433203744, 
-      36.949306642880984, 
-      40.65934283501407, 
-      40.30433055589724, 
-      40.61281581158074, 
-      52.411866319293914
-    ]
-  }, 
-  "ticker": "AMD"
-}
-```
 
 
-### stoch response example
+## Bollinger Bands
+-   BBANDS
+    - upperband
+      - green
+    - middleband
+      - lightblue
+    - lowerband
+      - yellow
+    - price
+      - blue
+
+
+<p align="center">
+  <img src="images\Bollinger Bands.png" height="200" width="auto" alt="accessibility text">
+</p>
+
+### bbands response example
 ```
 {
   "bbands": {
@@ -241,3 +293,16 @@ notebook
 }
 
 ```
+
+
+
+
+## Average True Range (ATR)
+-   ATR
+    - price
+      - yellow
+
+
+<p align="center">
+  <img src="images/Average True Range.png" height="200" width="auto" alt="accessibility text">
+</p>

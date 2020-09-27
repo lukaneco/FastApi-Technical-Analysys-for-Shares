@@ -58,12 +58,23 @@ def get_bbands_values(inputs):
 
     return ret_dict
 
+"""
+def get_atx_values(inputs):
+    atr_values = ta.ATR(inputs['high'], inputs['low'], inputs['close'])
+
+    ret_dict = {}
+
+    ret_dict['price'] = atr_values['BBL_5_2.0']
+
+    return ret_dict
+"""
 
 def get_indicator_values(indicator, inputs):
     switcher = {
         'stoch': get_stoch_values(inputs),
         'adx': get_adx_values(inputs),
         'bbands': get_bbands_values(inputs)
+        #'atx': get_atx_values(inputs)
     }
 
     return switcher.get(indicator, "Invalid Indicator")
