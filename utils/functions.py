@@ -11,7 +11,10 @@ def get_name(ticker):
         if(i['ticker'] == ticker):
             return i['nombre']
 
-
+# devuelve un json con todos los cedears
+def getCedears():
+    return cedears.lista
+    
 # convertir fechas en formato epoch a YYYY/MM/DD
 # devolver como lista
 def date_converter(dates):

@@ -67,3 +67,9 @@ def get_indicator_values(indicator, inputs):
     }
 
     return switcher.get(indicator, "Invalid Indicator")
+
+
+def get_indicators_types():
+    lista = [
+        {'type': 'stoch'}, {'type': 'adx'}, {'type': 'bbands'}]
+    return lista

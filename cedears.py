@@ -1,4 +1,6 @@
 # https://www.infobursatil.com/listado-cedears/
+# https://www.byma.com.ar/cedears/
+# http://www.byma.com.ar/download/11222/
 lista = [
     { 'type': 'CEDEAR', 'id': 1,   'ticker': 'AAPL',	'ratio': 10,	'nombre': 'Apple Inc.'},
     { 'type': 'CEDEAR', 'id': 2,   'ticker': 'ABEV',	'ratio': 0.33,	'nombre': 'Ambev S.A.'},

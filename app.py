@@ -34,6 +34,14 @@ def get_adx():
 
     return jsonify(return_json)
 
+@app.route('/', methods=['GET'])
+def get_docs():
+
+    return_json = {}
+    return_json['indicators'] = ta_calcs.get_indicators_types()
+    return_json['cedears'] = fnc.getCedears()
+    return jsonify(return_json)
+
 
 @app.after_request
 def after_request(response):
