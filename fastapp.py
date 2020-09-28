@@ -6,6 +6,7 @@ from utils import functions as fnc
 import json
 
 from typing import Optional
+import typing
 
 from fastapi import FastAPI, Request, Path, Query,Body
 from fastapi.encoders import jsonable_encoder
@@ -17,6 +18,15 @@ from pydantic import BaseModel
 # https://fastapi.tiangolo.com/tutorial/s
 # https://fastapi.tiangolo.com/tutorial/debugging/
 app = FastAPI()
+
+import orjson, datetime, numpy
+class ORJSONResponse(JSONResponse):
+    media_type = "application/json"
+
+    def render(self, content: typing.Any) -> bytes:
+        return orjson.dumps(content,
+        allow_nan=True)
+
 tags_metadata = [
     {
         "name": "users",
@@ -37,7 +47,8 @@ app = FastAPI(
     title="Fast Api Technical Analysys for Shares",
     description="This is a very fancy project, with auto docs for the API and everything",
     version="0.5.0",
-    openapi_tags=tags_metadata
+    openapi_tags=tags_metadata,
+    default_response_class=ORJSONResponse
 )
 
 # https://fastapi.tiangolo.com/tutorial/cors/
@@ -75,7 +86,10 @@ async def get_something(
 
     # date params format: YYYY/MM/DD
     start_date = date.today() - timedelta(days=365)
-    start_date = start_date.strftime("%Y/%m/%d")
+    #start_date = start_date.strftime("%Y/%m/%d")
+    start_date = start_date.strftime("%m/%d/%Y")
+    print("start_date")
+    print(start_date)
 
     talib_inputs = ta_calcs.get_ohlc_values(ticker, start_date)
 
@@ -113,15 +127,21 @@ async def get_data_candlestick(
 
     # date params format: YYYY/MM/DD
     start_date = date.today() - timedelta(days=365)
-    start_date = start_date.strftime("%Y/%m/%d")
+    #start_date = start_date.strftime("%Y/%m/%d")
+    start_date = start_date.strftime("%m/%d/%Y")
+    #start_date = start_date.strftime("%mm/%dd/%yyyy")
+    print(f"start_date: {start_date}")
 
     talib_inputs = ta_calcs.get_ohlc_values(ticker, start_date)
+
     talib_inputs = fnc.pd_series_to_list(talib_inputs)
 
-    return_json = {}
+    # return_json = {}
 
     # return json.dumps(return_json)
+    print(talib_inputs)
     json_compatible_item_data = jsonable_encoder(talib_inputs)
+    # json_compatible_item_data = json.dumps(talib_inputs)
     return JSONResponse(content=json_compatible_item_data)
 @app.get('/data')
 def get_docs():

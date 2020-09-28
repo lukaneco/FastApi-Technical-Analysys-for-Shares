@@ -2,7 +2,7 @@ import cedears
 from datetime import datetime
 
 # cantidad de ultimos N items a retornar por lista
-items_ret = 15
+items_ret = 100
 
 
 # obtener el nombre del cedear buscando por ticker

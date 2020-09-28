@@ -4,13 +4,15 @@ import pandas as pd
 
 
 # cantidad de ultimos N items a retornar por lista
-items_ret = 15
+items_ret = 100
 
 
 def get_ohlc_values(ticker, start_date):
     data = yf.get_data(ticker, start_date=start_date, index_as_date=False)
-
-    print(data)
+    # mm/dd/yyyy
+    # get_data(ticker, start_date = None, end_date = None, index_as_date = True, interval = “1d”)
+    # https://algotrading101.com/learn/yahoo-finance-api-guide/
+    #print(data)
 
     # devolver inputs y lista de diccionarios con fecha, OHLC
     inputs = {
@@ -23,7 +25,7 @@ def get_ohlc_values(ticker, start_date):
         'volume': pd.Series(data['volume'])
     }
 
-    print(inputs)
+    #print(inputs)
 
     return inputs
 """
@@ -89,23 +91,19 @@ def get_bbands_values(inputs):
 
     return ret_dict
 
-"""
+
 def get_atx_values(inputs):
-    atr_values = ta.ATR(inputs['high'], inputs['low'], inputs['close'])
-
     ret_dict = {}
-
-    ret_dict['price'] = atr_values['BBL_5_2.0']
-
+    ret_dict['price'] = inputs['close'].values.tolist()[-items_ret:]
     return ret_dict
-"""
+
 
 def get_indicator_values(indicator, inputs):
     switcher = {
         'stoch': get_stoch_values(inputs),
         'adx': get_adx_values(inputs),
-        'bbands': get_bbands_values(inputs)
-        #'atx': get_atx_values(inputs)
+        'bbands': get_bbands_values(inputs),
+        'atx': get_atx_values(inputs)
     }
 
     return switcher.get(indicator, "Invalid Indicator")
