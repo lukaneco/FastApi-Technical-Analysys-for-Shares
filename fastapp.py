@@ -17,8 +17,28 @@ from pydantic import BaseModel
 # https://fastapi.tiangolo.com/tutorial/s
 # https://fastapi.tiangolo.com/tutorial/debugging/
 app = FastAPI()
+tags_metadata = [
+    {
+        "name": "users",
+        "description": "Operations with users. The **login** logic is also here.",
+    },
+    {
+        "name": "items",
+        "description": "Manage items. So _fancy_ they have their own docs.",
+        "externalDocs": {
+            "description": "Items external docs",
+            "url": "https://fastapi.tiangolo.com/",
+        },
+    },
+]
 
 
+app = FastAPI(
+    title="Fast Api Technical Analysys for Shares",
+    description="This is a very fancy project, with auto docs for the API and everything",
+    version="0.5.0",
+    openapi_tags=tags_metadata
+)
 
 # https://fastapi.tiangolo.com/tutorial/cors/
 origins = [
@@ -26,7 +46,9 @@ origins = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://localhost:8080",
-    "http://127.0.0.1:8080"
+    "http://127.0.0.1:8080",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:5501"
 ]
 
 app.add_middleware(
@@ -39,8 +61,8 @@ app.add_middleware(
 
 
 
-
-@app.get('/api/ta')
+# https://fastapi.tiangolo.com/tutorial/metadata/
+@app.get('/api/ta', tags=["users"])
 # http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
 # https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
 async def get_something(
@@ -75,6 +97,32 @@ async def get_something(
     json_compatible_item_data = jsonable_encoder(return_json)
     return JSONResponse(content=json_compatible_item_data)
 
+
+
+# https://fastapi.tiangolo.com/tutorial/metadata/
+# Gráfico de velas (Candlestick chart)
+# http://127.0.0.1:8000/api/chart/candlestick?ticker=AMD
+@app.get('/api/chart/candlestick', tags=["Candlestick"])
+# http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
+# https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
+async def get_data_candlestick(
+    *,
+    ticker: str
+):
+    print(f"ticker: {ticker}")
+
+    # date params format: YYYY/MM/DD
+    start_date = date.today() - timedelta(days=365)
+    start_date = start_date.strftime("%Y/%m/%d")
+
+    talib_inputs = ta_calcs.get_ohlc_values(ticker, start_date)
+    talib_inputs = fnc.pd_series_to_list(talib_inputs)
+
+    return_json = {}
+
+    # return json.dumps(return_json)
+    json_compatible_item_data = jsonable_encoder(talib_inputs)
+    return JSONResponse(content=json_compatible_item_data)
 @app.get('/data')
 def get_docs():
     return_json = {}

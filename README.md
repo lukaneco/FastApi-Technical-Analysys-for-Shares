@@ -1,4 +1,4 @@
-# FastApi Technical Analysys for actions
+# FastApi Technical Analysys for Shares
 
 to use it:
 
@@ -33,6 +33,7 @@ based on:
       - green
     - slowk
       - red
+http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=stoch
 
 <p align="center">
   <img src="images/Indicador Estocástico.png" height="200" width="auto" alt="accessibility text">
@@ -109,6 +110,8 @@ based on:
     - DI-
       - red
 
+
+http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
 
 <p align="center">
   <img src="images/Índice de movimiento direccional.png" height="200" width="auto" alt="accessibility text">
@@ -207,6 +210,7 @@ based on:
     - price
       - blue
 
+http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=bbands
 
 <p align="center">
   <img src="images\Bollinger Bands.png" height="200" width="auto" alt="accessibility text">
