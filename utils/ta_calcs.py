@@ -111,5 +111,5 @@ def get_indicator_values(indicator, inputs):
 
 def get_indicators_types():
     lista = [
-        {'type': 'stoch'}, {'type': 'adx'}, {'type': 'bbands'}]
+        {'type': 'stoch'}, {'type': 'adx'}, {'type': 'bbands'}, {'type': 'atx'}]
     return lista

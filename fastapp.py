@@ -17,6 +17,8 @@ from pydantic import BaseModel
 # https://fastapi.tiangolo.com/
 # https://fastapi.tiangolo.com/tutorial/s
 # https://fastapi.tiangolo.com/tutorial/debugging/
+
+
 app = FastAPI()
 
 import orjson, datetime, numpy
@@ -59,7 +61,8 @@ origins = [
     "http://localhost:8080",
     "http://127.0.0.1:8080",
     "http://127.0.0.1:5500",
-    "http://127.0.0.1:5501"
+    "http://127.0.0.1:5501",
+    "http://localhost:4200"
 ]
 
 app.add_middleware(
@@ -111,7 +114,25 @@ async def get_something(
     json_compatible_item_data = jsonable_encoder(return_json)
     return JSONResponse(content=json_compatible_item_data)
 
+# https://fastapi.tiangolo.com/tutorial/metadata/
+@app.get('/dev/ta', tags=["users"])
+# http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
+# https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
+async def get_something_dev(
+    *,
+    ticker: str,
+    indicator: str,
+    q: Optional[str] = None
+):
+    print(f"indicator: {indicator}, ticker: {ticker}")
 
+    if q:
+        print(f"q: {q}")
+
+    json_data = '{"indicator":{indicator},"ticker":{ticker}}'
+    json_compatible_item_data = jsonable_encoder(json_data)
+    # return JSONResponse(content=json_compatible_item_data)
+    return JSONResponse(content=json_compatible_item_data)
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
 # Gráfico de velas (Candlestick chart)

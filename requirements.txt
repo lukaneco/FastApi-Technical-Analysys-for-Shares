@@ -22,3 +22,4 @@ pandas-ta
 uvicorn
 fastapi
 requests_html
+orjson
