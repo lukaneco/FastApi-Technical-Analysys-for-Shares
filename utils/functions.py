@@ -16,8 +16,8 @@ def get_name(ticker):
 """
 
 def data_pandas_to_arrays(data_pandas):
-    print("data_pandas")
-    print(data_pandas)
+    #print("data_pandas")
+    #print(data_pandas)
     del data_pandas['ticker']
 
     data_json = data_pandas.to_json(orient='records')
@@ -69,7 +69,18 @@ def date_converter(dates):
 # convertir serie pandas a lista
 # devolver últimos items_ret
 def pd_series_to_list(inputs):
+    datos = {}
     for key, value in inputs.items():
+        #print("inputs[key]")
+        #print(inputs[key])
         inputs[key] = value.values.tolist()[-items_ret:]
+        """
+        if key != "date":
+            inputs[key] = value.values.tolist()[-items_ret:]
+            pass
+        """
+        
+        #print(value.values)
+    print(inputs)
 
     return inputs

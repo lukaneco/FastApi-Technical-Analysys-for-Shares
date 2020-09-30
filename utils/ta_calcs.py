@@ -51,34 +51,34 @@ def funcname(ticker, start_date):
 """
 def get_stoch_values(inputs):
     stoch_values = ta.stoch(inputs['high'], inputs['low'], inputs['close'])
-    print(stoch_values)
+    #print(stoch_values)
 
     ret_dict = {}
 
     ret_dict['slowk'] = stoch_values['STOCHk_5'].values.tolist()[-items_ret:]
     ret_dict['slowd'] = stoch_values['STOCHd_3'].values.tolist()[-items_ret:]
 
-    print(ret_dict)
+    #print(ret_dict)
 
     return ret_dict
 
 
 def get_adx_values(inputs):
     adx_values = ta.adx(inputs['high'], inputs['low'], inputs['close'])
-    print(adx_values)
+    #print(adx_values)
 
     ret_dict = {}
 
     ret_dict['adx'] = adx_values['ADX_14'].values.tolist()[-items_ret:]
     ret_dict['di_minus'] = adx_values['DMN_14'].values.tolist()[-items_ret:]
     ret_dict['di_plus'] = adx_values['DMP_14'].values.tolist()[-items_ret:]
-    print(ret_dict)
+    #print(ret_dict)
     return ret_dict
 
 
 def get_bbands_values(inputs):
     bbands_values = ta.bbands(inputs['close'])
-    print(bbands_values)
+    #print(bbands_values)
 
     ret_dict = {}
 
@@ -87,7 +87,7 @@ def get_bbands_values(inputs):
     ret_dict['upper'] = bbands_values['BBU_5_2.0'].values.tolist()[-items_ret:]
     ret_dict['price'] = inputs['close'].values.tolist()[-items_ret:]
 
-    print(ret_dict)
+    #print(ret_dict)
 
     return ret_dict
 
@@ -109,7 +109,12 @@ def get_indicator_values(indicator, inputs):
     return switcher.get(indicator, "Invalid Indicator")
 
 
+# lista = [{'type': 'stoch'}, {'type': 'adx'}, {'type': 'bbands'}, {'type': 'atx'}]
+lista = {'stoch':['slowk','slowd'], 'adx':['adx','di_plus','di_minus'], 'bbands':['upper','mid','lower','price'], 'atx':['price']}
+# lista = {'stoch':{'slowk','slowd'}, 'adx':{'adx','di_plus','di_minus'}, 'bbands':{'upper','mid','lower','price'}, 'atx':{'price'}}
+
 def get_indicators_types():
-    lista = [
-        {'type': 'stoch'}, {'type': 'adx'}, {'type': 'bbands'}, {'type': 'atx'}]
+    return lista
+
+def get_indicators_values():
     return lista

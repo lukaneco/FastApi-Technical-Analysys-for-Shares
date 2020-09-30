@@ -22,6 +22,7 @@ from pydantic import BaseModel
 app = FastAPI()
 
 import orjson, datetime, numpy
+
 class ORJSONResponse(JSONResponse):
     media_type = "application/json"
 
@@ -50,7 +51,7 @@ app = FastAPI(
     description="This is a very fancy project, with auto docs for the API and everything",
     version="0.5.0",
     openapi_tags=tags_metadata,
-    default_response_class=ORJSONResponse
+    # default_response_class=ORJSONResponse
 )
 
 # https://fastapi.tiangolo.com/tutorial/cors/
@@ -76,10 +77,10 @@ app.add_middleware(
 
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
-@app.get('/api/ta', tags=["users"])
+@app.get('/api/ta', tags=["old"])
 # http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
 # https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
-async def get_something(
+async def get_something_old(
     *,
     ticker: str,
     indicator: str,
@@ -89,10 +90,7 @@ async def get_something(
 
     # date params format: YYYY/MM/DD
     start_date = date.today() - timedelta(days=365)
-    #start_date = start_date.strftime("%Y/%m/%d")
-    start_date = start_date.strftime("%m/%d/%Y")
-    print("start_date")
-    print(start_date)
+    start_date = start_date.strftime("%Y/%m/%d")
 
     talib_inputs = ta_calcs.get_ohlc_values(ticker, start_date)
 
@@ -102,11 +100,64 @@ async def get_something(
 
     str_dates = fnc.date_converter(talib_inputs['date'])
 
+    if q:
+        print({"q": q})
+
+
     return_json = {}
     return_json['ticker'] = ticker
     return_json['name'] = fnc.get_name(ticker)
     return_json[f'{indicator}'] = indicator_values
     return_json['date'] = str_dates
+
+    # return_json['date'] = str_dates
+
+    # return json.dumps(return_json)
+    json_compatible_item_data = jsonable_encoder(return_json)
+    return JSONResponse(content=json_compatible_item_data)
+
+
+# https://fastapi.tiangolo.com/tutorial/metadata/
+@app.get('/', tags=["prod"])
+# http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
+# https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
+async def get_something(
+    *,
+    ticker: str,
+    indicator: str,
+    q: Optional[str] = None
+):
+    #print(f"indicator: {indicator}, ticker: {ticker}")
+
+    # date params format: YYYY/MM/DD
+    start_date = date.today() - timedelta(days=365)
+    #start_date = start_date.strftime("%Y/%m/%d")
+    start_date = start_date.strftime("%m/%d/%Y")
+    #print("start_date")
+    #print(start_date)
+
+    talib_inputs = ta_calcs.get_ohlc_values(ticker, start_date)
+
+    indicator_values = ta_calcs.get_indicator_values(indicator, talib_inputs)
+
+    talib_inputs = fnc.pd_series_to_list(talib_inputs)
+
+    print(type(talib_inputs))
+    # talib_inputs['price'] = indicator_values['price']
+
+    return_json = {}
+    return_json['ticker'] = ticker
+    return_json['name'] = fnc.get_name(ticker)
+    return_json['indicator'] = indicator
+    return_json['values'] = ta_calcs.lista[indicator]
+    # candlestick
+    #return_json['data'] = talib_inputs
+    return_json['data']= indicator_values
+
+    # return_json[f'{indicator}'] = indicator_values
+    return_json['date'] = fnc.date_converter(talib_inputs['date'])
+    talib_inputs.pop("date")
+    # return_json['date'] = str_dates
 
     # return json.dumps(return_json)
     if q:
@@ -115,7 +166,7 @@ async def get_something(
     return JSONResponse(content=json_compatible_item_data)
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
-@app.get('/dev/ta', tags=["users"])
+@app.get('/demo', tags=["prod"])
 # http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
 # https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
 async def get_something_dev(
@@ -124,15 +175,38 @@ async def get_something_dev(
     indicator: str,
     q: Optional[str] = None
 ):
-    print(f"indicator: {indicator}, ticker: {ticker}")
+    # json_data = ''''''
+    def getFileContent(file_path):
+        """
+        with open(file_path, "rb") as file_content:
+            return file_content
+        """
+        f = open(file_path, "r")
+        #print(f.read())
+        return f.read()
+    #json_data = getFileContent("json_static.json")
+    #print(gg)
+
+    #print(f"indicator: {indicator}, ticker: {ticker}")
 
     if q:
         print(f"q: {q}")
 
-    json_data = '{"indicator":{indicator},"ticker":{ticker}}'
-    json_compatible_item_data = jsonable_encoder(json_data)
-    # return JSONResponse(content=json_compatible_item_data)
+    # json_data = '{"indicator":{indicator},"ticker":{ticker}}'
+    import json 
+  
+    # Opening JSON file 
+    jsonfile = open("json_static.json") 
+    
+    # returns JSON object as  
+    # a dictionary 
+    data = json.load(jsonfile) 
+
+    # json_data = json.loads("json_static.json")
+    json_compatible_item_data = jsonable_encoder(data)
+    # json_compatible_item_data = json.dumps(json_data)
     return JSONResponse(content=json_compatible_item_data)
+    #return json_compatible_item_data
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
 # Gráfico de velas (Candlestick chart)
@@ -144,14 +218,14 @@ async def get_data_candlestick(
     *,
     ticker: str
 ):
-    print(f"ticker: {ticker}")
+    #print(f"ticker: {ticker}")
 
     # date params format: YYYY/MM/DD
     start_date = date.today() - timedelta(days=365)
     #start_date = start_date.strftime("%Y/%m/%d")
     start_date = start_date.strftime("%m/%d/%Y")
     #start_date = start_date.strftime("%mm/%dd/%yyyy")
-    print(f"start_date: {start_date}")
+    #print(f"start_date: {start_date}")
 
     talib_inputs = ta_calcs.get_ohlc_values(ticker, start_date)
 
@@ -160,7 +234,7 @@ async def get_data_candlestick(
     # return_json = {}
 
     # return json.dumps(return_json)
-    print(talib_inputs)
+    #print(talib_inputs)
     json_compatible_item_data = jsonable_encoder(talib_inputs)
     # json_compatible_item_data = json.dumps(talib_inputs)
     return JSONResponse(content=json_compatible_item_data)
