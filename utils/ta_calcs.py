@@ -53,11 +53,15 @@ def get_stoch_values(inputs):
     stoch_values = ta.stoch(inputs['high'], inputs['low'], inputs['close'])
     #print(stoch_values)
 
+
     ret_dict = {}
-
-    ret_dict['slowk'] = stoch_values['STOCHk_5'].values.tolist()[-items_ret:]
-    ret_dict['slowd'] = stoch_values['STOCHd_3'].values.tolist()[-items_ret:]
-
+    
+    try:
+        ret_dict['slowk'] = stoch_values['STOCHk_5'].values.tolist()[-items_ret:]
+        ret_dict['slowd'] = stoch_values['STOCHd_3'].values.tolist()[-items_ret:]
+        pass
+    except KeyError:
+        pass
     #print(ret_dict)
 
     return ret_dict
