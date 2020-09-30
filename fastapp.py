@@ -118,7 +118,7 @@ async def get_something_old(
 
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
-@app.get('/', tags=["prod"])
+@app.get('/api', tags=["prod"])
 # http://127.0.0.1:8000/api/ta/?ticker=AMD&indicator=adx
 # https://fastapi.tiangolo.com/tutorial/body-multiple-params/#multiple-body-params-and-query
 async def get_something(
