@@ -270,7 +270,8 @@ uvicorn app:app --reload
 uvicorn fast_api_app:app --reload
 uvicorn <app_name>:app --reload
 uvicorn fastapp:app --reload
-
+uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"
+sudo python3 -m  uvicorn fastapp:app  --reload --port 80 --host 0.0.0.0
 based on
 https://render.githubusercontent.com/view/ipynb?commit=700633386663e8f5ffba80f65d27e41e0545658c&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f746f6d61736d6572656e63696f2f416e616c697369735465636e69636f416363696f6e65732f373030363333333836363633653866356666626138306636356432376534316530353435363538632f416e616c697369735465636e69636f416363696f6e65732e6970796e62&nwo=tomasmerencio%2FAnalisisTecnicoAcciones&path=AnalisisTecnicoAcciones.ipynb&repository_id=290331654&repository_type=Repository#Gr%C3%A1ficos-de-indicadores-con-matplotlib
 """

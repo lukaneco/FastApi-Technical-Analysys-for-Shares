@@ -18,7 +18,8 @@ six
 urllib3
 Werkzeug
 yahoo-fin
-pandas-ta
+#pandas-ta
+git+https://github.com/twopirllc/pandas-ta
 uvicorn
 fastapi
 requests_html
