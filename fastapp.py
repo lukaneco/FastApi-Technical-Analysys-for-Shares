@@ -174,8 +174,7 @@ async def get_something(
 async def get_something_dev(
     *,
     ticker: str,
-    indicator: str,
-    q: Optional[str] = None
+    indicator: str
 ):
     # json_data = ''''''
     def getFileContent(file_path):
@@ -257,12 +256,12 @@ def get_ping():
     return_json = {}
     return_json['pong'] = True
     return json.dumps(return_json)
-
+"""
 import uvicorn
 if __name__ == '__main__':
     # app.run(debug=True, threaded=True, port=5000)
     uvicorn.run(app)
-
+"""
 
 
 # https://amitness.com/2020/06/fastapi-vs-flask/
