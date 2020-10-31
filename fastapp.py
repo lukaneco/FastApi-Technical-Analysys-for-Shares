@@ -127,7 +127,9 @@ async def get_something(
     *,
     ticker: str,
     indicator: str,
-    q: Optional[str] = None
+    date_old: str,
+    date_new: str,
+    #q: Optional[str] = None
 ):
     #print(f"indicator: {indicator}, ticker: {ticker}")
 

@@ -61,6 +61,7 @@ def get_stoch_values(inputs):
         ret_dict['slowd'] = stoch_values['STOCHd_3'].values.tolist()[-items_ret:]
         pass
     except KeyError:
+        print("GG ICI")
         pass
     #print(ret_dict)
 
