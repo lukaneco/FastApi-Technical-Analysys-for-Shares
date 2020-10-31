@@ -241,6 +241,9 @@ async def get_data_candlestick(
     json_compatible_item_data = jsonable_encoder(talib_inputs)
     # json_compatible_item_data = json.dumps(talib_inputs)
     return JSONResponse(content=json_compatible_item_data)
+
+
+    
 @app.get('/data')
 def get_docs():
     return_json = {}
